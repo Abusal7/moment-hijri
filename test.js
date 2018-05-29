@@ -42,18 +42,6 @@ describe('moment', function() {
       m.format('YYYY-MM-DD').should.be.equal('2014-08-17')
     })
 
-    it('should parse when Hijri year and month are in the format', function() {
-      var m = moment('17 1436 5', 'D iYYYY iM')
-      m.format('YYYY-MM-DD').should.be.equal('2015-02-17')
-      m = moment('1432 4', 'iYYYY iM')
-      m.format('YYYY-MM-DD').should.be.equal('2011-03-06')
-    })
-
-    it('should parse when Hijri year and date are in the format', function() {
-      var m = moment('26 1436 8', 'iD iYYYY M')
-      m.format('YYYY-MM-DD').should.be.equal('2014-08-19')
-    })
-
     it('should parse when Hijri year, month and date are in the format', function() {
       var m = moment('26 1430 5', 'iD iYYYY iM')
       m.format('YYYY-MM-DD').should.be.equal('2009-05-21')
@@ -340,6 +328,26 @@ describe('moment', function() {
     it('should also has iYears alias', function() {
       moment.fn.iYear.should.be.equal(moment.fn.iYears)
     })
+
+    it('should add years', function() {
+      var m = moment('1409-07-18', 'iYYYY-iMM-iDD')
+      m.add(1, 'iYear')
+      m.format('iYYYY-iMM-iDD').should.be.equal('1410-07-18')
+      m.add(4, 'iYear')
+      m.format('iYYYY-iMM-iDD').should.be.equal('1414-07-18')
+      m.add(1, 'iYear')
+      m.format('iYYYY-iMM-iDD').should.be.equal('1415-07-18')
+    })
+
+    it('should subtract years', function() {
+      var m = moment('1409-07-18', 'iYYYY-iMM-iDD')
+      m.subtract(1, 'iYear')
+      m.format('iYYYY-iMM-iDD').should.be.equal('1408-07-18')
+      m.subtract(5, 'iYear')
+      m.format('iYYYY-iMM-iDD').should.be.equal('1403-07-18')
+      m.subtract(1, 'iYear')
+      m.format('iYYYY-iMM-iDD').should.be.equal('1402-07-18')
+    })
   })
 
   describe('#iMonth', function() {
@@ -379,6 +387,26 @@ describe('moment', function() {
       m.iMonth('Jum-I')
       m.format('iYYYY/iM/iD').should.be.equal('1436/5/10')
     })
+
+    it('should add months', function() {
+      var m = moment('1409-07-18', 'iYYYY-iMM-iDD')
+      m.add(1, 'iMonth')
+      m.format('iYYYY-iMM-iDD').should.be.equal('1409-08-18')
+      m.add(4, 'iMonth')
+      m.format('iYYYY-iMM-iDD').should.be.equal('1409-12-18')
+      m.add(1, 'iMonth')
+      m.format('iYYYY-iMM-iDD').should.be.equal('1410-01-18')
+    })
+
+    it('should subtract months', function() {
+      var m = moment('1409-07-18', 'iYYYY-iMM-iDD')
+      m.subtract(1, 'iMonth')
+      m.format('iYYYY-iMM-iDD').should.be.equal('1409-06-18')
+      m.subtract(5, 'iMonth')
+      m.format('iYYYY-iMM-iDD').should.be.equal('1409-01-18')
+      m.subtract(1, 'iMonth')
+      m.format('iYYYY-iMM-iDD').should.be.equal('1408-12-18')
+    })
   })
 
   describe('#iDate', function() {
@@ -403,6 +431,26 @@ describe('moment', function() {
 
     it('should also has iDates alias', function() {
       moment.fn.iDate.should.be.equal(moment.fn.iDates)
+    })
+
+    it('should add days', function() {
+      var m = moment('1409-07-18', 'iYYYY-iMM-iDD')
+      m.add(1, 'iDate')
+      m.format('iYYYY-iMM-iDD').should.be.equal('1409-07-19')
+      m.add(10, 'iDate')
+      m.format('iYYYY-iMM-iDD').should.be.equal('1409-07-29')
+      m.add(1, 'iDate')
+      m.format('iYYYY-iMM-iDD').should.be.equal('1409-08-01')
+    })
+
+    it('should subtract days', function() {
+      var m = moment('1409-07-18', 'iYYYY-iMM-iDD')
+      m.subtract(1, 'iDate')
+      m.format('iYYYY-iMM-iDD').should.be.equal('1409-07-17')
+      m.subtract(10, 'iDate')
+      m.format('iYYYY-iMM-iDD').should.be.equal('1409-07-07')
+      m.subtract(7, 'iDate')
+      m.format('iYYYY-iMM-iDD').should.be.equal('1409-06-30')
     })
   })
 
@@ -469,6 +517,5 @@ describe('moment', function() {
       m.format('iYYYY-iMM-iDD').should.be.equal('1409-06-30')
     })
   })
-
 
 })

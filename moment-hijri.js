@@ -645,10 +645,6 @@
 			lastDay = Math.min(h.hd, hMoment.iDaysInMonth(input, h.hm))
 			g = toGregorian(input, h.hm, lastDay)
 			setDate(this, g.gy, g.gm, g.gd)
-			//Workaround: sometimes moment wont set the date correctly if current day is the last in the month
-			if (this.month() != g.gm || this.date() != g.gd || this.year() != g.gy) {
-				setDate(this, g.gy, g.gm, g.gd)
-			}
 			moment.updateOffset(this)
 			return this
 		} else {
@@ -677,10 +673,6 @@
 			}
 			g = toGregorian(this.iYear(), input, lastDay)
 			setDate(this, g.gy, g.gm, g.gd)
-			//Workaround: sometimes moment wont set the date correctly if current day is the last in the month
-			if (this.month() != g.gm || this.date() != g.gd || this.year() != g.gy) {
-				setDate(this, g.gy, g.gm, g.gd)
-			}
 			moment.updateOffset(this)
 			return this
 		} else {
@@ -694,10 +686,6 @@
 			h = toHijri(this.year(), this.month(), this.date())
 			g = toGregorian(h.hy, h.hm, input)
 			setDate(this, g.gy, g.gm, g.gd)
-			//Workaround: sometimes moment wont set the date correctly if current day is the last in the month
-			if (this.month() != g.gm || this.date() != g.gd || this.year() != g.gy) {
-				setDate(this, g.gy, g.gm, g.gd)
-			}
 			moment.updateOffset(this)
 			return this
 		} else {
@@ -846,6 +834,7 @@
 
 	/*
     Converts a date of the Hijri calendar to the Julian Day number.
+
     @param hy Hijri year (1356 to 1500)
     @param hm Hijri month (1 to 12)
     @param hd Hijri day (1 to 29/30)
@@ -890,6 +879,7 @@
     the date (i.e. 12 hours of Universal Time).
     The procedure was tested to be good since 1 March, -100100 (of both
     calendars) up to a few million years into the future.
+
     @param gy Calendar year (years BC numbered 0, -1, -2, ...)
     @param gm Calendar month (1 to 12)
     @param gd Calendar day of the month (1 to 28/29/30/31)
@@ -906,6 +896,7 @@
     Calculates Gregorian and Julian calendar dates from the Julian Day number
     (hdn) for the period since jdn=-34839655 (i.e. the year -100100 of both
     calendars) to some millions years ahead of the present.
+
     @param jdn Julian Day number
     @return
       gy: Calendar year (years BC numbered 0, -1, -2, ...)
@@ -931,6 +922,7 @@
 	/*
     Returns the index of the modified Julian day number of the new moon
     by the given year and month
+
     @param hy: Hijri year (1356 to 1500)
     @param hm: Hijri month (1 to 12)
     @return
@@ -945,6 +937,7 @@
 
 	/*
     Returns the nearest new moon
+
     @param jdn Julian Day number
     @return
       i: the index of a modified Julian day number.
